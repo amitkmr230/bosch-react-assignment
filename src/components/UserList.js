@@ -19,6 +19,12 @@ function UserList() {
         });  
     }, [])
 
+    const handleClick = id => {
+      console.log(id)
+      localStorage.setItem("id", id)
+      window.location.reload()
+    }
+
     return (
         <React.Fragment>
             <TableContainer component={Paper}>  
@@ -35,18 +41,7 @@ function UserList() {
           <TableBody>  
             {  
               list.map((p, index) => {  
-                return <TableRow hover key={index} onClick={(id) => 
-                  { const details = {
-                    id: p.id, 
-                    firstName: p.first_name, 
-                    lastName: p.last_name, 
-                    email: p.email};
-                  console.log(details); 
-                  alert(`First Name: ${details.firstName}
-Last Name: ${details.lastName}
-Email: ${details.email}                  
-                  `)
-                   }}>  
+                return <TableRow hover key={index} onClick={() => handleClick(p.id)}>  
                   <TableCell component="th" scope="row">  
                     {p.id}  
                   </TableCell>  
