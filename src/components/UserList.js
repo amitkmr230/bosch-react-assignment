@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper'; 
 import axios from 'axios';  
 
-function UserList() {
+function UserList(props) {
     const [list, setList] = useState([]);
 
     useEffect(() => {
@@ -19,10 +19,17 @@ function UserList() {
         });  
     }, [])
 
-    const handleClick = id => {
+    const handleClick = (id, firstName, lastName, email) => {
       console.log(id)
-      localStorage.setItem("id", id)
-      window.location.reload()
+      // localStorage.setItem("id", id)
+      // window.location.reload()
+      const details = {
+        id,
+        firstName,
+        lastName,
+        email 
+      }
+      props.sendData(details);
     }
 
     return (
@@ -41,7 +48,7 @@ function UserList() {
           <TableBody>  
             {  
               list.map((p, index) => {  
-                return <TableRow hover key={index} onClick={() => handleClick(p.id)}>  
+                return <TableRow hover key={index} onClick={() => handleClick(p.id, p.first_name, p.last_name, p.email)}>  
                   <TableCell component="th" scope="row">  
                     {p.id}  
                   </TableCell>  
